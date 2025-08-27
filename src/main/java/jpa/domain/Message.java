@@ -1,4 +1,4 @@
-package jpa;
+package jpa.domain;
 
 import java.time.LocalDateTime;
 
@@ -7,9 +7,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 
 
 @Entity
+@Table(name = "message")
 public class Message {
 
   @Id
@@ -17,6 +20,7 @@ public class Message {
 
   private Long id;
   private String content;
+  @Column(name = "created_at")
   private LocalDateTime createdAt;
   
   public Long getId() {

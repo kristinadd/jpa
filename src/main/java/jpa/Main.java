@@ -1,27 +1,36 @@
 package jpa;
 
+import java.time.LocalDate;
 
 import java.util.List;
 
+import jpa.dao.CustomerDao;
+import jpa.domain.Address;
+import jpa.domain.Customer;
 public class Main {
   public static void main(String[] args) {
-    MessageDao dao = new MessageDao();
 
-    Message message = new Message();
-    message.setContent("Hello World! It's Tuesday!");
-    dao.create(message);
+    Address address = new Address("123 Main St", "Anytown", "USA", "12345");
+    Address deliveryAddress = new Address("456 Main St", "Sydney", "Australia", "2000");
+    Customer customer = new Customer("John Doe", "M", LocalDate.parse("1990-01-01"), address, deliveryAddress, "12345");
 
-    List<Message> messages = dao.findAll();
-    System.out.println(messages);
+    CustomerDao customerDao = new CustomerDao();
+    customerDao.create(customer);
 
+    Address address2 = new Address("456 Main St", "Sydney", "Australia", "2000");
 
-
-
-
-
+    customer.setAddress(address2);
+    customerDao.update(customer);
 
 
 
+    Customer readCustomer = customerDao.read(1L);
+    System.out.println("💖" + readCustomer);
+
+
+
+    List<Customer> customers = customerDao.findByCity("Sydney");
+    System.out.println(customers);
 
 
 
@@ -30,6 +39,41 @@ public class Main {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ================================
+    // CRUD operations for Message
+    // ================================
+
+    // MessageDao dao = new MessageDao();
+
+    // Message message = new Message();
+    // message.setContent("Hello World! It's Tuesday!");
+    // dao.create(message);
+
+    // List<Message> messages = dao.findAll();
+    // System.out.println(messages);
 
 
 

@@ -1,28 +1,28 @@
-package jpa;
+package jpa.dao;
 
 import jakarta.persistence.Persistence; // persistence engine
 import jakarta.persistence.TypedQuery;
-import jpa.domain.Message;
+import jpa.domain.Customer;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import java.util.List;
 
-public class MessageDao {
+public class CustomerDaoOld {
 
   private EntityManagerFactory emf;
 
-  public MessageDao() {
+  public CustomerDaoOld() {
     this.emf = Persistence.createEntityManagerFactory("jpa");
   }
 
-  public void create(Message message) {
+  public void create(Customer customer) {
     EntityManager em = emf.createEntityManager();
     EntityTransaction tx = em.getTransaction();
 
     try {
       tx.begin();
-      em.persist(message);
+      em.persist(customer);
       tx.commit();
     } catch (Exception ex) {
       if (tx != null && tx.isActive()) {
@@ -37,13 +37,13 @@ public class MessageDao {
   }
 
 // not need to return because it's passed by reference 
-  public void update(Message message) {
+  public void update(Customer customer) {
     EntityManager em = emf.createEntityManager();
     EntityTransaction tx = em.getTransaction();
     try {
       tx.begin();
-      if (!em.contains(message))
-        em.merge(message);
+      if (!em.contains(customer))
+        em.merge(customer);
       tx.commit();
 
     } catch (Exception ex) {
@@ -58,21 +58,21 @@ public class MessageDao {
     }
   }
 
-  public void delete(Message message) {
+  public void delete(Customer customer) {
     EntityManager em = emf.createEntityManager();
     EntityTransaction tx = em.getTransaction();
 
     try {
       tx.begin();
       // If entity is detached, merge it to get a managed entity
-      // Message managedMessage = em.contains(message) ? message : em.merge(message);
+      // Customer managedCustomer = em.contains(customer) ? customer : em.merge(customer);
 
       //  merge returns an instance of the entity that is managed by the entity manager
-      //  so we need to assign it to the message variable
-      if (!em.contains(message))
-        message = em.merge(message);
+      //  so we need to assign it to the customer variable
+      if (!em.contains(customer))
+        customer = em.merge(customer);
 
-      em.remove(message);
+      em.remove(customer);
       tx.commit();
     } catch (Exception ex) {
       if (tx != null && tx.isActive()) {
@@ -87,15 +87,15 @@ public class MessageDao {
   }
 
   //  need to pass 4L as id because it's a Long
-  public Message find(Long id) {
+  public Customer find(Long id) {
     EntityManager em = emf.createEntityManager();
     EntityTransaction tx = em.getTransaction();
 
     try {
       tx.begin();
-      Message message = em.find(Message.class, id);
+      Customer customer = em.find(Customer.class, id);
       tx.commit();
-      return message;
+      return customer;
     } catch (Exception ex) {
       if (tx != null && tx.isActive()) {
         tx.rollback();
@@ -108,16 +108,16 @@ public class MessageDao {
     }
   }
 
-  public List<Message> findAll() {
+  public List<Customer> findAll() {
     EntityManager em = emf.createEntityManager();
     EntityTransaction tx = em.getTransaction();
 
     try {
       tx.begin();
-      TypedQuery<Message> query = em.createQuery("SELECT m FROM Message m", Message.class);
-      List<Message> messages = query.getResultList();
+      TypedQuery<Customer> query = em.createQuery("SELECT m FROM Customer m", Customer.class);
+      List<Customer> customers = query.getResultList();
       tx.commit();
-      return messages;
+      return customers;
     } catch (Exception ex) {
       if (tx != null && tx.isActive()) {
         tx.rollback();
