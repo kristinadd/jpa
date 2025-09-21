@@ -4,8 +4,6 @@ import java.util.List;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.TypedQuery;
 import java.lang.reflect.ParameterizedType;
 import java.util.concurrent.Callable;
 

@@ -10,11 +10,19 @@
         <!-- Entity classes -->
         <class>jpa.domain.Message</class>
         <class>jpa.domain.Customer</class>
+        <class>jpa.domain.BillingDetails</class>
+        <class>jpa.domain.CreditCard</class>
+        <class>jpa.domain.BankAccount</class>
+        <class>jpa.domain.Item</class>
+        <class>jpa.domain.Dimention</class>
+        <class>jpa.domain.Weight</class>
+        <class>jpa.domain.Measurment</class>
+        
 
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/jpa"/>
             <property name="jakarta.persistence.jdbc.user" value="root"/>
-            <property name="jakarta.persistence.jdbc.password" value="password"/>
+            <property name="jakarta.persistence.jdbc.password" value="mypass"/>
 
             <property name="hibernate.hbm2ddl.auto" value="create"/>
 

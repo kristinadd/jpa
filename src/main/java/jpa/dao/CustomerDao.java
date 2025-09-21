@@ -18,7 +18,8 @@ public class CustomerDao extends JPADaoOld<Customer, Long> {
   public List<Customer> findByCity(String city) {
     EntityManager em = emf.createEntityManager();
 
-    String jpql = "SELECT c FROM Customer c WHERE c.address.city = :city";
+    // 3 levels of nesting
+    String jpql = "SELECT c FROM Customer c WHERE c.address.city.name = :city";
     return em.createQuery(jpql, Customer.class)
       .setParameter("city", city)
       .getResultList();

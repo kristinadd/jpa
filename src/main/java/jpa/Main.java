@@ -1,64 +1,81 @@
 package jpa;
 
 import java.time.LocalDate;
-
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import jpa.dao.BillingDetailsDao;
 import jpa.dao.CustomerDao;
+import jpa.dao.ItemDao;
 import jpa.domain.Address;
+import jpa.domain.BankAccount;
+import jpa.domain.BillingDetails;
+import jpa.domain.City;
+import jpa.domain.CreditCard;
 import jpa.domain.Customer;
+import jpa.domain.Dimention;
+import jpa.domain.Gender;
+import jpa.domain.Item;
+import jpa.domain.Weight;
 public class Main {
   public static void main(String[] args) {
 
-    Address address = new Address("123 Main St", "Anytown", "USA", "12345");
-    Address deliveryAddress = new Address("456 Main St", "Sydney", "Australia", "2000");
-    Customer customer = new Customer("John Doe", "M", LocalDate.parse("1990-01-01"), address, deliveryAddress, "12345");
 
-    CustomerDao customerDao = new CustomerDao();
-    customerDao.create(customer);
+    ItemDao dao = new ItemDao();
 
-    Address address2 = new Address("456 Main St", "Sydney", "Australia", "2000");
+    Set<String> images = new HashSet<>();
+    images.add("image1.jpg");
+    images.add("image2.jpg");
+    images.add("image3.jpg");
+    Item item = new Item(new Dimention(10, 10, 10), new Weight(10), images);
+    dao.create(item);
 
-    customer.setAddress(address2);
-    customerDao.update(customer);
+    
+    System.out.println(dao.read(1L));
 
+    // City city = new City("Sofia", "Bulgaria", "12345");
+    // Address homeAddress = new Address("123 Main St", city);
+    // Address deliveryAddress = new Address("123 Main St", city);
+    // Set<BillingDetails> billingDetails = new HashSet<>();
 
+    // CreditCard creditCard = new CreditCard("1234567890", "12", "2025");
+    // billingDetails.add(creditCard);
 
-    Customer readCustomer = customerDao.read(1L);
-    System.out.println("💖" + readCustomer);
+    // BankAccount bankAccount = new BankAccount();
+    // bankAccount.setAccountName("Savings");
+    // bankAccount.setBankName("HSBC");
+    // bankAccount.setSwift("1234567890");
+    // bankAccount.setOwner("Kristina D");
+  
+    // billingDetails.add(bankAccount);
+    // creditCard.setOwner("Kristina D");
+    
+    // CustomerDao dao = new CustomerDao();
 
+    // Customer customer = new Customer(
+    //   "Kristina D",
+    //   Gender.FEMALE,
+    //   LocalDate.of(1990, 1, 1),
+    //   homeAddress,
+    //   deliveryAddress,
+    //   billingDetails
+    // );
 
+    // creditCard.setCustomer(customer);
+    // bankAccount.setCustomer(customer);
 
-    List<Customer> customers = customerDao.findByCity("Sydney");
-    System.out.println(customers);
+    // dao.create(customer);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // // creditCard.setExpMonth("9");
+    // System.out.println(dao.read(1L).getBillingDetails());
+    // System.out.println(dao.read(1L).getBillingDetails().iterator().next().getCustomer());
+    // System.out.println(dao.readAll());
+    // dao.update(customer);
+    // System.out.println(dao.read(1L));
+    // System.out.println(dao.readAll());
+    // dao.delete(customer);
+  
 
 
 

@@ -7,14 +7,26 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.persistence.CascadeType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.EnumType;
+
+// for one to many relationship
+import java.util.Set;
+import java.util.HashSet;
 
 // the address needs to be object
 // customer DAO
@@ -33,7 +45,9 @@ public class Customer implements Serializable {
   @Size(min = 3, max = 128, message = "Name must be between 3 and 128 characters")
   @Column(nullable = false, unique = true, length = 255)
   private String name;
-  private String gender;
+
+  @Enumerated(EnumType.STRING)
+  private Gender gender;
 
   @Column(name = "date_of_birth")
   private LocalDate dob;
@@ -44,23 +58,34 @@ public class Customer implements Serializable {
   @AttributeOverrides({
     //                  original name,       new name
     @AttributeOverride(name = "street", column = @Column(name = "delivery_street")),
-    @AttributeOverride(name = "city", column = @Column(name = "delivery_city")),
-    @AttributeOverride(name = "country", column = @Column(name = "delivery_country")),
-    @AttributeOverride(name = "zipcode", column = @Column(name = "delivery_zipcode"))
+    @AttributeOverride(name = "city.name", column = @Column(name = "delivery_city_name")),
+    @AttributeOverride(name = "city.country", column = @Column(name = "delivery_city_country")),
+    @AttributeOverride(name = "city.zipcode", column = @Column(name = "delivery_city_zipcode"))
   })
   private Address deliveryAddress;
 
-  @Transient // not managed by the database, not persisted to the database 
-  private String billing;
+
+  // @OneToOne(cascade = CascadeType.ALL)
+  // @JoinColumn(name = "billing_details")
+  // @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER) // the default is EAGER if not specified; LAZY but there is an issue with the session.
+
+
+  @OneToMany(cascade = CascadeType.ALL, fetch =FetchType.EAGER) // for one customer there are many billing details // needs to be a collection. 
+  private Set<BillingDetails> billingDetails  = new HashSet<>();
+  // Set - no duplicates, no order
+  // List - duplicates, order
+  // Map - key, value
+  
 
   public Customer() {}
-  public Customer(String name, String gender, LocalDate dob, Address address, Address deliveryAddress, String billing) {
+
+  public Customer(String name, Gender gender, LocalDate dob, Address address, Address deliveryAddress, Set<BillingDetails> billingDetails) {
     this.name = name;
     this.gender = gender;
     this.dob = dob;
     this.address = address;
     this.deliveryAddress = deliveryAddress;
-    this.billing = billing;
+    this.billingDetails = billingDetails;
   }
 
   public long getId() {
@@ -80,11 +105,11 @@ public class Customer implements Serializable {
     this.name = name;
   }
 
-  public String getGender() {
+  public Gender getGender() {
     return gender;
   }
 
-  public void setGender(String gender) {
+  public void setGender(Gender gender) {
     this.gender = gender;
   }
 
@@ -112,17 +137,17 @@ public class Customer implements Serializable {
     this.deliveryAddress = deliveryAddress;
   }
 
-  public String getBilling() {
-    return billing;
+  public Set<BillingDetails> getBillingDetails() {
+    return billingDetails;
   }
 
-  public void setBilling(String billing) {
-    this.billing = billing;
+  public void setBillingDetails(Set<BillingDetails> billingDetails) {
+    this.billingDetails = billingDetails;
   }
 
   @Override
   public String toString() {
     return "Customer [id=" + id + ", name=" + name + ", gender=" + gender + ", dob=" + dob + ", address=" + address
-        + ", billing=" + billing + "]";
+        + ", billingDetails=" + billingDetails + "]";
   }
 }
