@@ -17,6 +17,7 @@
         <class>jpa.domain.Dimention</class>
         <class>jpa.domain.Weight</class>
         <class>jpa.domain.Measurment</class>
+        <class>jpa.domain.Bid</class>
         
 
         <properties>

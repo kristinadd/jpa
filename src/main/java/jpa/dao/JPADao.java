@@ -25,7 +25,7 @@ public abstract class JPADao<T, K> implements DAO<T, K> {
 
   public List<T> readAll() {
     return emf.callInTransaction(em  -> {
-      return em.createQuery("from" + clazz.getSimpleName(), clazz).getResultList();
+      return em.createQuery("from " + clazz.getSimpleName(), clazz).getResultList();
     });
   }
 
@@ -43,7 +43,7 @@ public abstract class JPADao<T, K> implements DAO<T, K> {
 
   public void delete(T t) {
     emf.runInTransaction(em -> {
-      em.remove(t);
+      em.remove(em.contains(t) ? t : em.merge(t));
     });
   }
 }

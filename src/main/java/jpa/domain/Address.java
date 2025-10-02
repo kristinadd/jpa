@@ -1,6 +1,14 @@
 package jpa.domain;
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.JoinColumn;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
@@ -20,12 +28,22 @@ public class Address {
   })
   private City city;
 
+  @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(
+    name = "contact",
+    joinColumns = @JoinColumn(name = "customer_id")
+  )
+  @Column(name = "name-for-contact")
+  private Set<String> contacts = new HashSet<>();
+  // address is inside of a customer so it should be a customer id
+
 
   public Address() {} // for JPA
 
-  public Address(String street, City city) {
+  public Address(String street, City city, Set<String> contacts) {
     this.street = street;
     this.city = city;
+    this.contacts = contacts;
   }
 
   public String getStreet() {
@@ -34,6 +52,14 @@ public class Address {
 
   public void setStreet(String street) {
     this.street = street;
+  }
+
+  public Set<String> getContacts() {
+    return contacts;
+  }
+
+  public void setContacts(Set<String> contacts) {
+    this.contacts = contacts;
   }
 
   public City getCity() {
@@ -46,6 +72,6 @@ public class Address {
 
   @Override
   public String toString() {
-    return "Address [street=" + street + ", city=" + city + "]";
+    return "Address [street=" + street + ", city=" + city + ", contacts=" + contacts + "]";
   } 
 }
