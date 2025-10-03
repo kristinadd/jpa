@@ -1,30 +1,12 @@
 package jpa;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-
 import jpa.dao.BidDao;
-import jpa.dao.BillingDetailsDao;
-import jpa.dao.CustomerDao;
 import jpa.dao.ItemDao;
-import jpa.domain.Address;
-import jpa.domain.BankAccount;
 import jpa.domain.Bid;
-import jpa.domain.BillingDetails;
-import jpa.domain.City;
-import jpa.domain.CreditCard;
-import jpa.domain.Customer;
-import jpa.domain.Dimention;
-import jpa.domain.Gender;
-import jpa.domain.Image;
-import jpa.domain.ImageName;
 import jpa.domain.Item;
-import jpa.domain.Weight;
+
 public class Main {
   public static void main(String[] args) {
 
