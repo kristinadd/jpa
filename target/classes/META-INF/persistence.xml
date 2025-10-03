@@ -18,6 +18,7 @@
         <class>jpa.domain.Weight</class>
         <class>jpa.domain.Measurment</class>
         <class>jpa.domain.Bid</class>
+        <class>jpa.domain.kristinaTest.Recipe</class>
         
 
         <properties>

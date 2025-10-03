@@ -35,19 +35,9 @@ public class Item implements Serializable {
   private Weight weight;
 
   @ElementCollection(fetch = FetchType.EAGER)
-  @CollectionTable(name = "image", joinColumns = @JoinColumn(name = "item_id"))
+  @CollectionTable(name = "image-kristina", joinColumns = @JoinColumn(name = "item_id"))
   @Column(name = "fileimage")
   @MapKeyColumn(name = "imagename") // if not specified it will be done automatically
-
-  // @AttributeOverride(name = "title", column = @Column(name = "funnyname", nullable = false))
-
-  // @OrderBy("filename, width DESC")
-  // private Set<Image> images = new LinkedHashSet<>();
-
-  // @OrderColumn
-  // private List<String> images = new ArrayList<>(); // keep order, contains duplicates
-  // private Set<String> images = new HashSet<>(); // no order , no duplicates
-
   private Map<ImageName, Image> images = new HashMap<>();
 
   @OneToMany(mappedBy = "item", fetch = FetchType.EAGER)
@@ -64,12 +54,15 @@ public class Item implements Serializable {
   public Dimention getDimention() {
     return dimention;
   }
+
   public void setDimention(Dimention dimention) {
     this.dimention = dimention;
   }
+
   public Weight getWeight() {
     return weight;
   }
+
   public void setWeight(Weight weight) {
     this.weight = weight;
   }
