@@ -1,13 +1,13 @@
 package jpa.domain;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.DiscriminatorValue;
+// import jakarta.persistence.GeneratedValue;
+// import jakarta.persistence.GenerationType;
+// import jakarta.persistence.Id;
+// import jakarta.persistence.DiscriminatorValue;
 import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.Table;
-import jakarta.persistence.PrimaryKeyJoinColumn; // change the id 
+// import jakarta.persistence.PrimaryKeyJoinColumn; // change the id 
 
 @Entity
 @Table(name = "credit_card")
