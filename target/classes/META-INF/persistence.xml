@@ -18,7 +18,12 @@
         <class>jpa.domain.Weight</class>
         <class>jpa.domain.Measurment</class>
         <class>jpa.domain.Bid</class>
+
+        <!-- Kristina Test -->
         <class>jpa.domain.kristinaTest.Recipe</class>
+        <class>jpa.domain.kristinaTest.Ingredient</class>
+        <class>jpa.domain.kristinaTest.RecipeIngredient</class>
+        <class>jpa.domain.kristinaTest.Customer2</class>
         
 
         <properties>
