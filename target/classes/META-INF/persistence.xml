@@ -24,6 +24,7 @@
         <class>jpa.domain.kristinaTest.Ingredient</class>
         <class>jpa.domain.kristinaTest.RecipeIngredient</class>
         <class>jpa.domain.kristinaTest.Customer2</class>
+        <class>jpa.domain.kristinaTest.Order</class>
         
 
         <properties>
